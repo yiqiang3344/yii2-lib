@@ -58,7 +58,7 @@ class CodeMessage extends Model
         $response = \Yii::$app->getResponse();
         $response->format = Response::FORMAT_JSON;
         $response->data = [
-            'code' => intval($code),
+            'status' => intval($code),
             'message' => $message,
             'response' => $data,
         ];
