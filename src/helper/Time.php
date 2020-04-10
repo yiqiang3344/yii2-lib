@@ -144,4 +144,14 @@ class Time
         $t = $t1 - $t2;
         return floatval(bcadd($t, $m, 4));
     }
+
+
+    /**
+     * 3位小数的浮点型时间戳
+     * @return string
+     */
+    public static function getFloatMicroTime()
+    {
+        return sprintf('%0.3f', microtime(true));
+    }
 }
