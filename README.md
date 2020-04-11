@@ -3,7 +3,7 @@
 
 # 安装
 ```bash
-composer 
+composer require yiqiang3344/yii2_lib
 ```
 
 # 功能
