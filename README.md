@@ -119,6 +119,12 @@ db中配置了credit_db数据库，则可以继承`DB`类，然后添加`credit_
   
 获取指定时间戳的当日的开始时间 `getDailyStartTime($time = null)`
   
-获取是指定时间戳的当天的截止时间 `getDailyEndTime($time = null)`  
+获取指定时间戳的当天的截止时间 `getDailyEndTime($time = null)`
+
+获取3位毫秒小数的浮点型时间戳 `getFloatMicroTime()`
+
+## Deamon 基于swoole可调节子进程数的守护进程
+
+## Sms 子调节发送及状态同步进程的短信系统
 
 

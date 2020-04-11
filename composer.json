@@ -1,6 +1,7 @@
 {
   "name": "yiqiang3344/yii2-lib",
   "description": "yii2公共php库",
+  "homepage": "https://github.com/yiqiang3344/yii2-lib#readme",
   "authors": [
     {
       "name": "junqiang.yi",
@@ -12,38 +13,12 @@
       "yiqiang3344\\yii2_lib\\": "src/"
     }
   },
-  "type": "project",
-  "license": "BSD-3-Clause",
-  "support": {
-    "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-    "forum": "http://www.yiiframework.com/forum/",
-    "wiki": "http://www.yiiframework.com/wiki/",
-    "irc": "irc://irc.freenode.net/yii",
-    "source": "https://github.com/yiisoft/yii2"
-  },
-  "minimum-stability": "stable",
+  "type": "library",
+  "license": "MIT",
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "~2.0.13",
     "yiisoft/yii2-redis": "^2.0",
     "aliyuncs/oss-sdk-php": "~2.0.0"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0.x-dev"
-    }
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packagist.phpcomposer.com"
-    },
-    {
-      "packagist": false
-    }
-  ],
-  "config": {
-    "process-timeout": 1800,
-    "secure-http": false
   }
 }
