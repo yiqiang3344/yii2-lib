@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "yiqiang3344\\lib\\": "src/"
+      "yiqiang3344\\yii2_lib\\": "src/"
     }
   },
   "type": "project",

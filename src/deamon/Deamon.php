@@ -1,6 +1,6 @@
 <?php
 
-namespace xyf\lib\deamon;
+namespace yiqiang3344\yii2_lib\deamon;
 
 use Swoole\Process;
 

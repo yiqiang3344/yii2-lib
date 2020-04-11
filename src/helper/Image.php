@@ -1,6 +1,6 @@
 <?php
 
-namespace xyf\lib\helper;
+namespace yiqiang3344\yii2_lib\helper;
 
 
 /**

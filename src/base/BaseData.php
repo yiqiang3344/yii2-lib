@@ -1,7 +1,7 @@
 <?php
-namespace xyf\lib\base;
+namespace yiqiang3344\yii2_lib\base;
 
-use xyf\lib\helper\ArrayHelper;
+use yiqiang3344\yii2_lib\helper\ArrayHelper;
 use yii\base\Model;
 
 /**

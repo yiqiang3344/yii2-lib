@@ -1,11 +1,11 @@
 <?php
 
-namespace xyf\lib\sms;
+namespace yiqiang3344\yii2_lib\sms;
 
 
-use xyf\lib\helper\config\Config;
-use xyf\lib\helper\Time;
-use xyf\lib\helper\validator\Validator;
+use yiqiang3344\yii2_lib\helper\config\Config;
+use yiqiang3344\yii2_lib\helper\Time;
+use yiqiang3344\yii2_lib\helper\validator\Validator;
 use yii\base\Exception;
 
 /**
@@ -25,7 +25,7 @@ class SmsFacade
         $class = Config::getString('commonSms.class', '\\xyf\\lib\\sms\\Sms');
         $sms = new $class;
         if (!$sms instanceof SmsInterface) {
-            throw new Exception('must instanceof xyf\lib\sms\SmsInterface');
+            throw new Exception('must instanceof yiqiang3344\yii2_lib\sms\SmsInterface');
         }
         return $sms;
     }

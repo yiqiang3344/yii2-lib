@@ -6,7 +6,7 @@
  * Time: 11:22 AM
  */
 
-namespace xyf\lib\helper\redis;
+namespace yiqiang3344\yii2_lib\helper\redis;
 
 use yii\base\Model;
 use yii\redis\Connection;

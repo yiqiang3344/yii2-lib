@@ -1,10 +1,10 @@
 <?php
 
-namespace xyf\lib\sms;
+namespace yiqiang3344\yii2_lib\sms;
 
 
-use xyf\lib\helper\redis\Redis;
-use xyf\lib\helper\Time;
+use yiqiang3344\yii2_lib\helper\redis\Redis;
+use yiqiang3344\yii2_lib\helper\Time;
 use yii\base\Exception;
 use yii\redis\Connection;
 
@@ -182,7 +182,7 @@ class Sms implements SmsInterface
     /**
      * 匹配短信通道
      * @param $data
-     * @return \xyf\lib\sms\AChannel
+     * @return \yiqiang3344\yii2_lib\sms\AChannel
      */
     public function matchChannel($data)
     {
@@ -192,7 +192,7 @@ class Sms implements SmsInterface
     /**
      * 获取短信通道
      * @param $channel
-     * @return \xyf\lib\sms\AChannel
+     * @return \yiqiang3344\yii2_lib\sms\AChannel
      */
     public function getChannel($channel)
     {

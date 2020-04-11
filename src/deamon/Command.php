@@ -1,8 +1,8 @@
 <?php
-namespace xyf\lib\deamon;
+namespace yiqiang3344\yii2_lib\deamon;
 
 
-use xyf\lib\base\BaseData;
+use yiqiang3344\yii2_lib\base\BaseData;
 /**
  *
  * User: sidney

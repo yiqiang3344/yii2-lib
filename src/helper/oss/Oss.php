@@ -1,6 +1,6 @@
 <?php
 
-namespace xyf\lib\helper\oss;
+namespace yiqiang3344\yii2_lib\helper\oss;
 
 use OSS\Core\OssException;
 use OSS\OssClient;

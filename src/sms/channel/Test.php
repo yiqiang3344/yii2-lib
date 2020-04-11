@@ -1,8 +1,8 @@
 <?php
-namespace xyf\lib\sms\channel;
+namespace yiqiang3344\yii2_lib\sms\channel;
 
 
-use xyf\lib\sms\AChannel;
+use yiqiang3344\yii2_lib\sms\AChannel;
 
 /**
  * User: sidney

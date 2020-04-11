@@ -6,7 +6,7 @@
  * Time: 11:50 AM
  */
 
-namespace xyf\lib\helper\encrypt;
+namespace yiqiang3344\yii2_lib\helper\encrypt;
 
 
 use yii\base\Model;

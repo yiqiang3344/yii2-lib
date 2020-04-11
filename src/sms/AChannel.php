@@ -1,5 +1,5 @@
 <?php
-namespace xyf\lib\sms;
+namespace yiqiang3344\yii2_lib\sms;
 
 /**
  *

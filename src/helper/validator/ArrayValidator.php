@@ -6,7 +6,7 @@
  * Time: 10:19 AM
  */
 
-namespace xyf\lib\helper\validator;
+namespace yiqiang3344\yii2_lib\helper\validator;
 
 /**
  * 数组校验类

@@ -1,8 +1,8 @@
 <?php
-namespace xyf\lib\sms;
+namespace yiqiang3344\yii2_lib\sms;
 
 
-use xyf\lib\sms\channel\Test;
+use yiqiang3344\yii2_lib\sms\channel\Test;
 
 /**
  *

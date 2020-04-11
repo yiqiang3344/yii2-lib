@@ -6,7 +6,7 @@
  * Time: 11:50 AM
  */
 
-namespace xyf\lib\helper;
+namespace yiqiang3344\yii2_lib\helper;
 
 
 use yii\base\Model;

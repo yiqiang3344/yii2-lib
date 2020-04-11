@@ -6,7 +6,7 @@
  * Time: 9:32 AM
  */
 
-namespace xyf\lib\helper\config;
+namespace yiqiang3344\yii2_lib\helper\config;
 
 
 use yii\base\Exception;

@@ -6,7 +6,7 @@
  * Time: 19:11
  */
 
-namespace xyf\lib\helper\encrypt;
+namespace yiqiang3344\yii2_lib\helper\encrypt;
 
 /**
  * RSA加密工具类
