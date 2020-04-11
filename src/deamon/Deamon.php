@@ -4,6 +4,12 @@ namespace xyf\lib\deamon;
 
 use Swoole\Process;
 
+/**
+ *
+ * User: sidney
+ * Date: 2020/4/10
+ * @since 1.0.19
+ */
 class Deamon
 {
     /**
@@ -46,7 +52,7 @@ class Deamon
         $this->config = $config;
         $this->callback = $callback;
         $this->limitNumFunc = $limitNumFunc;
-        $this->reloadTimeInterval = $this->config['reload_time'] ?? 60;//重载时间间隔，单位秒
+        $this->reloadTimeInterval = $this->config['reload_time_interval'] ?? 60;//重载worker时间间隔，单位秒
         $this->lastReloadTime = time();
     }
 

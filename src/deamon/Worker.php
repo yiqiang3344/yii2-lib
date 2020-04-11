@@ -11,6 +11,7 @@ use xyf\lib\base\BaseData;
  * @property Command $command
  * @property int $pid
  * @property bool $stopping
+ * @since 1.0.19
  */
 class Worker extends BaseData
 {

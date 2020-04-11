@@ -1,14 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sidney
- * Date: 2020/4/8
- * Time: 12:36 PM
- */
-
 namespace xyf\lib\sms;
 
-
+/**
+ *
+ * User: sidney
+ * Date: 2020/4/10
+ * @since 1.0.19
+ */
 abstract class AChannel
 {
     abstract public function getName();

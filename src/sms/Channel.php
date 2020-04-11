@@ -1,16 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sidney
- * Date: 2020/4/8
- * Time: 12:36 PM
- */
-
 namespace xyf\lib\sms;
 
 
 use xyf\lib\sms\channel\Test;
 
+/**
+ *
+ * User: sidney
+ * Date: 2020/4/10
+ * @since 1.0.19
+ */
 class Channel
 {
     /**

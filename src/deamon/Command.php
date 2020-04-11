@@ -11,6 +11,7 @@ use xyf\lib\base\BaseData;
  * @property int $id
  * @property bool $stopping
  * @property bool $enable
+ * @since 1.0.19
  */
 class Command extends BaseData
 {

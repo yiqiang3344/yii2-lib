@@ -9,6 +9,7 @@ use yii\base\Model;
  * 继承此类之后，在类的块注释中说明属性即可
  * Class BaseData
  * @package common\models\base
+ * @since 1.0.19
  */
 class BaseData extends Model
 {
