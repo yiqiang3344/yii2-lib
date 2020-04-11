@@ -140,7 +140,7 @@ class Time
         $microTime2 = $microTime2 ?: microtime();
         list($m1, $t1) = explode(' ', $microTime1);
         list($m2, $t2) = explode(' ', $microTime2);
-        $m = bcdiv($m1, $m2, 4);
+        $m = bcsub($m1, $m2, 4);
         $t = $t1 - $t2;
         return floatval(bcadd($t, $m, 4));
     }

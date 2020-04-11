@@ -1,6 +1,12 @@
-# yii2-lib
+# 简介
 库中定义了基于yii2框架的配置文件、数据库、加密、OSS、Redis、参数校验、状态码，以及数组、字符串、金额、图片和时间等常用的工具类。
 
+# 安装
+```bash
+composer 
+```
+
+# 功能
 ## config
 ### 配置类 `\yiqiang3344\lib\helper\config\Config`
 可以以点连接的方式按数据类型读取`Yii::$app->params`中的参数。
