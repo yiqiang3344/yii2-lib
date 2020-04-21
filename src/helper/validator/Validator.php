@@ -66,10 +66,10 @@ class Validator extends Base
         'ip' => 'yii\validators\IpValidator',
 
         //自定义
-        'array' => 'common\helper\validator\ArrayValidator',
-        'mobile' => 'common\helper\validator\MobileValidator',
-        'id_card_number' => 'common\helper\validator\IdCardNumberValidator',
-        'chinese_name' => 'common\helper\validator\ChineseNameValidator',
+        'array' => 'yiqiang3344\yii2_lib\helper\validator\ArrayValidator',
+        'mobile' => 'yiqiang3344\yii2_lib\helper\validator\MobileValidator',
+        'id_card_number' => 'yiqiang3344\yii2_lib\helper\validator\IdCardNumberValidator',
+        'chinese_name' => 'yiqiang3344\yii2_lib\helper\validator\ChineseNameValidator',
     ];
 
     /**
@@ -86,17 +86,19 @@ class Validator extends Base
      *   ]
      * @return bool
      * @throws \yii\base\Exception
-     * @since 1.0.8
+     * @since 1.0.19
      */
     public static function checkParams(&$params, $needParams)
     {
         $subMessage = true;
         foreach ($needParams as $key => $v) {
-            if (isset($v['type']) && !isset($v['default']) && empty($params[$key])) {
-                $subMessage = $v['message'] ?? ' [' . $key . '] ' . '不能为空';
+            $attrName = $key . (isset($v['name']) ? '[' . $v['name'] . ']' : '');
+
+            if (isset($v['type']) && !array_key_exists('default', $v) && empty($params[$key])) {
+                $subMessage = $v['message'] ?? $attrName . '不能为空';
                 break;
             } elseif (isset($v['type'])
-                && (!isset($v['default']) || isset($params[$key]))
+                && (!array_key_exists('default', $v) || isset($params[$key]))
             ) {
                 if (!isset(self::$builtInValidators[$v['type']])) {
                     throw new Exception('检查类型不存在');
@@ -104,9 +106,9 @@ class Validator extends Base
                 $validatorConfig = self::$builtInValidators[$v['type']];
                 $class = is_array($validatorConfig) ? $validatorConfig['class'] : $validatorConfig;
                 /** @var Validator $validator */
-                $validator = new $class;
+                $validator = new $class($v['option'] ?? []);
                 if (!$validator->validate($params[$key] ?? null, $subMessage)) {
-                    $subMessage = $v['message'] ?? ' [' . $key . '] ' . $subMessage;
+                    $subMessage = $v['message'] ?? $attrName . $subMessage;
                     break;
                 }
             } elseif (!isset($params[$key])) {
