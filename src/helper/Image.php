@@ -3,11 +3,12 @@
 namespace yiqiang3344\yii2_lib\helper;
 
 
+use yii\base\Exception;
+
 /**
  * 图像处理公用类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Image
 {
@@ -37,6 +38,7 @@ class Image
      * @param $quality int 压缩质量
      * @param $destination string 存放压缩后文件地址
      * @return false|string
+     * @throws Exception
      */
     public static function compress($source, $quality = 50, $destination = '')
     {
@@ -49,6 +51,8 @@ class Image
             $image = imagecreatefromgif($source);
         } elseif ($info['mime'] == 'image/png') {
             $image = imagecreatefrompng($source);
+        } else {
+            throw new Exception('不支持的类型:' . $info['mime']);
         }
 
         if ($destination) {

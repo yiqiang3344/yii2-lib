@@ -10,7 +10,6 @@ use yii\db\Connection;
  * 数据库事务类，以闭包的形式来使用事务
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class DbTransaction
 {

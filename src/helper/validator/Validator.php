@@ -9,8 +9,8 @@
 namespace yiqiang3344\yii2_lib\helper\validator;
 
 
+use yiqiang3344\yii2_lib\helper\exception\ParamsInvalidException;
 use yii\base\Exception;
-use yii\base\UserException;
 use yii\validators\DateValidator;
 use yii\validators\Validator as Base;
 
@@ -18,7 +18,6 @@ use yii\validators\Validator as Base;
  * 参数校验类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Validator extends Base
 {
@@ -66,10 +65,10 @@ class Validator extends Base
         'ip' => 'yii\validators\IpValidator',
 
         //自定义
-        'array' => 'yiqiang3344\yii2_lib\helper\validator\ArrayValidator',
-        'mobile' => 'yiqiang3344\yii2_lib\helper\validator\MobileValidator',
-        'id_card_number' => 'yiqiang3344\yii2_lib\helper\validator\IdCardNumberValidator',
-        'chinese_name' => 'yiqiang3344\yii2_lib\helper\validator\ChineseNameValidator',
+        'array' => '\yiqiang3344\yii2_lib\helper\validator\ArrayValidator',
+        'mobile' => '\yiqiang3344\yii2_lib\helper\validator\MobileValidator',
+        'id_card_number' => '\yiqiang3344\yii2_lib\helper\validator\IdCardNumberValidator',
+        'chinese_name' => '\yiqiang3344\yii2_lib\helper\validator\ChineseNameValidator',
     ];
 
     /**
@@ -85,8 +84,8 @@ class Validator extends Base
      *       ],
      *   ]
      * @return bool
-     * @throws \yii\base\Exception
-     * @since 1.0.19
+     * @throws Exception
+     * @throws ParamsInvalidException
      */
     public static function checkParams(&$params, $needParams)
     {
@@ -120,7 +119,7 @@ class Validator extends Base
             }
         }
         if ($subMessage !== true) {
-            throw new UserException($subMessage, -1);
+            throw new ParamsInvalidException($subMessage, -1);
         }
         return true;
     }

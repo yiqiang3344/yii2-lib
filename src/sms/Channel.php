@@ -8,7 +8,6 @@ use yiqiang3344\yii2_lib\sms\channel\Test;
  *
  * User: sidney
  * Date: 2020/4/10
- * @since 1.0.19
  */
 class Channel
 {

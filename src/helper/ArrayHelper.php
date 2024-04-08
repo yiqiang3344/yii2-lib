@@ -15,7 +15,6 @@ use yii\db\ActiveRecord;
  * 数组工具类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class ArrayHelper extends \yii\helpers\ArrayHelper
 {

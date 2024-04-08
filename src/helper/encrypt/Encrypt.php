@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 2018/12/23
- * Time: 11:50 AM
- */
 
 namespace yiqiang3344\yii2_lib\helper\encrypt;
 
@@ -15,7 +9,6 @@ use yii\base\Model;
  * 通用加密工具类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Encrypt extends Model
 {
@@ -65,25 +58,122 @@ class Encrypt extends Model
         return true;
     }
 
-
-
-    public static function PaddingPKCS7($input) {
-        $srcdata = $input;
-        $block_size = mcrypt_get_block_size ( 'tripledes', 'ecb' );
-        $padding_char = $block_size - (strlen ( $input ) % $block_size);
-        $srcdata .= str_repeat ( chr ( $padding_char ), $padding_char );
-        return $srcdata;
+    /**
+     * ua统一验签方法
+     * @param $ua
+     * @param $key
+     * @param $args
+     * @param $method
+     * @return bool
+     */
+    public static function getSignByUa($ua, $key, $args, $method)
+    {
+        $signKey = "{$ua}{$key}{$ua}";
+        if (is_array($args)) {
+            $args = json_encode($args);
+        }
+        return md5("{$signKey}{$method}{$signKey}{$args}{$signKey}");
     }
 
-    public static function encryptOld($string, $key) {
-        $string = static::PaddingPKCS7 ( $string );
+    public static function rsaEncrypt($source, $type, $key)
+    {
+        $maxlength = 117;
+        $output = '';
+        while ($source) {
+            $input = substr($source, 0, $maxlength);
+            $source = substr($source, $maxlength);
 
-        $cipher_alg = MCRYPT_TRIPLEDES;
-        $iv = mcrypt_create_iv ( mcrypt_get_iv_size ( $cipher_alg, MCRYPT_MODE_ECB ), MCRYPT_RAND );
+            if ($type == 'private') {
+                $ok = openssl_private_encrypt($input, $encrypted, $key);
+            } else {
+                $ok = openssl_public_encrypt($input, $encrypted, $key);
+            }
+            $output .= $encrypted;
+        }
+        return $output;
+    }
 
-        $encrypted_string = mcrypt_encrypt ( $cipher_alg, $key, $string, MCRYPT_MODE_ECB, $iv );
-        $des3 = bin2hex ( $encrypted_string );
+    public static function rsaDecrypt($source, $type, $key)
+    {
+        $maxlength = 128;
+        $output = '';
+        while ($source) {
+            $input = substr($source, 0, $maxlength);
+            $source = substr($source, $maxlength);
+            if ($type == 'private') {
+                $ok = openssl_private_decrypt($input, $out, $key);
+            } else {
+                $ok = openssl_public_decrypt($input, $out, $key);
+            }
+            $output .= $out;
+        }
+        return $output;
+    }
 
-        return $des3;
+    /**
+     * RSA公钥加密
+     * @param $source string 数据
+     * @param $key string 公钥
+     * @return string
+     */
+    public static function rsaPubEncrypt($source, $key)
+    {
+        return base64_encode(self::rsaEncrypt($source, 'public', $key));
+    }
+
+    /**
+     * RSA私钥加密
+     * @param $source string 数据
+     * @param $key string 私钥
+     * @return string
+     */
+    public static function rsaPriEncrypt($source, $key)
+    {
+        return base64_encode(self::rsaEncrypt($source, 'private', $key));
+    }
+
+    /**
+     * RSA私钥解密
+     * @param $source string 数据
+     * @param $key string 私钥
+     */
+    public static function rsaPriDecrypt($source, $key)
+    {
+        return self::rsaDecrypt(base64_decode($source), 'private', $key);
+    }
+
+    /**
+     * RSA私钥解密
+     * @param $source string 数据
+     * @param $key string 私钥
+     * @return false|string
+     */
+    public static function rsaPubDecrypt($source, $key)
+    {
+        return self::rsaDecrypt(base64_decode($source), 'public', $key);
+    }
+
+    /**
+     * AES(AES/ECB/PKCS5Padding)加密
+     * @param $data string 数据
+     * @param $key string AES密钥
+     * @return string
+     */
+    public static function aesEcbEncrypt($data, $key)
+    {
+        $res = openssl_encrypt($data, 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
+        return ($res === false) ? $res : base64_encode($res);
+    }
+
+    /**
+     * AES(AES/ECB/PKCS5Padding)解密
+     * @param $data string 数据
+     * @param $key string AES密钥
+     * @return string
+     */
+    public static function aesEcbDecrypt($data, $key)
+    {
+        $data = base64_decode($data);
+        return openssl_decrypt($data, 'AES-128-ECB', $key, OPENSSL_RAW_DATA);
     }
 }

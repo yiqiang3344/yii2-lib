@@ -12,7 +12,6 @@ use yii\base\Exception;
  *
  * User: sidney
  * Date: 2020/4/10
- * @since 1.0.19
  */
 class SmsFacade
 {

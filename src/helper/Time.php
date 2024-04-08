@@ -13,7 +13,6 @@ namespace yiqiang3344\yii2_lib\helper;
  * 统一时间处理类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Time
 {
@@ -24,6 +23,15 @@ class Time
     public static function time()
     {
         return time();
+    }
+
+    /**
+     * 获取秒级时间戳
+     * @return int
+     */
+    public static function microtime()
+    {
+        return microtime();
     }
 
     /**
@@ -44,7 +52,7 @@ class Time
     public static function nowWithMicros($time = null)
     {
         $time = $time ?: microtime();
-        list($m, $t) = explode(' ', microtime());
+        list($m, $t) = explode(' ', $time);
         return date("Y-m-d H:i:s", $t) . '.' . floor($m * 10000);
     }
 
@@ -133,7 +141,6 @@ class Time
      * @param $microTime1
      * @param null $microTime2
      * @return float
-     * @since 1.0.3
      */
     public static function getSubMicroTime($microTime1, $microTime2 = null)
     {
@@ -145,13 +152,18 @@ class Time
         return floatval(bcadd($t, $m, 4));
     }
 
-
     /**
-     * 3位小数的浮点型时间戳
-     * @return string
+     * 检查日期格式是否正确
+     * @param $date
+     * @return bool
      */
-    public static function getFloatMicroTime()
+    public static function validDate($date)
     {
-        return sprintf('%0.3f', microtime(true));
+        //匹配日期格式
+        if (preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $date, $parts)) {
+            //检测是否为日期,checkdate为月日年
+            return checkdate($parts[2], $parts[3], $parts[1]) ? true : false;
+        }
+        return false;
     }
 }

@@ -12,7 +12,6 @@ namespace yiqiang3344\yii2_lib\helper\validator;
  * 数组校验类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class ArrayValidator extends Validator
 {

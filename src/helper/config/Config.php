@@ -15,7 +15,6 @@ use yii\base\Model;
  * 配置文件类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Config extends Model
 {

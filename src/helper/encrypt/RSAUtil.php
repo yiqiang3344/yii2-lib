@@ -12,7 +12,6 @@ namespace yiqiang3344\yii2_lib\helper\encrypt;
  * RSA加密工具类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class RSAUtil
 {

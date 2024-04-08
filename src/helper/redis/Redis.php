@@ -15,7 +15,6 @@ use yii\redis\Connection;
  * 通用Redis
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Redis extends Model
 {
@@ -33,5 +32,16 @@ class Redis extends Model
             static::$redis = \Yii::$app->$redisName;
         }
         return static::$redis;
+    }
+
+    /**
+     * redis 断线重连
+     */
+    public static function reconnect()
+    {
+        if (static::instance()->getIsActive() === false) {
+            Redis::instance()->close();
+            Redis::instance()->open();
+        }
     }
 }

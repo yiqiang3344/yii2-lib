@@ -9,16 +9,19 @@ use OSS\OssClient;
  * 通用OSS
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class Oss
 {
+    const RETRY_NUM = 5; //超时重试次数
+
     protected $endpoint; //域名
     protected $bucket; //存储空间名
-    protected $ossClient; //oss客户端对象
+    /** @var OssClient */
+    public $ossClient; //oss客户端对象
     protected $securityToken;//临时访问url的token
     protected $timeout; //临时访问url的有效期
     protected $domain; //临时访问url的自定义域名
+    protected $config;
 
     public $error;
 
@@ -48,24 +51,111 @@ class Oss
         $this->securityToken = $config['securityToken'] ?? null;
         $this->timeout = $config['timeout'] ?? 3600; //有效期
         $this->domain = $config['domain'] ?? null; //自定义域名
+        $this->config = $config;
         $this->ossClient = new OssClient($config['accessKeyId'], $config['accessKeySecret'], $this->endpoint, false, $this->securityToken);
+        $this->ossClient->setTimeout($config['curl_timeout'] ?? 30);
+    }
+
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
+
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    public function getSecurityToken()
+    {
+        return $this->securityToken;
+    }
+
+    public function getAccessKeyId()
+    {
+        return $this->config['accessKeyId'];
+    }
+
+    public function getAccessKeySecret()
+    {
+        return $this->config['accessKeySecret'];
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
     }
 
     /**
      * 上传文件
      * @param $filename
      * @param $filePath
+     * @param int $timeout curl超时时间，单位秒
+     * @param bool $reTry 是否重试
      * @return bool
      */
-    public function uploadFile($filename, $filePath)
+    public function uploadFile($filename, $filePath, $timeout = null, $reTry = true)
     {
-        try {
-            $this->ossClient->uploadFile($this->bucket, $filename, $filePath);
-            return true;
-        } catch (OssException $e) {
-            $this->error = $e;
-            return false;
+        $i = 0;
+        $tryNum = self::RETRY_NUM;
+        if (!$reTry) {
+            $tryNum = 1;
         }
+        while ($i++ < $tryNum) {
+            try {
+                if ($timeout > 0) {
+                    $this->ossClient->setTimeout($timeout);
+                }
+                $this->ossClient->uploadFile($this->bucket, $filename, $filePath);
+                return true;
+            } catch (OssException $e) {
+                //超时可以重试
+                if (strpos($e->getMessage(), 'timed out after') !== false) {
+                    continue;
+                }
+                $this->error = $e;
+                return false;
+            }
+        }
+        $this->error = new OssException('upload file timed out after ' . $tryNum . ' times');
+        return false;
+    }
+
+    /**
+     * 上传文件
+     * @param string $filename 文件名称
+     * @param string $content 文件内容
+     * @param int $timeout 超时时间
+     * @param bool $reTry 是否重试
+     * @return bool
+     */
+    public function putObject($filename, $content, $timeout = 0, $reTry = true)
+    {
+
+
+        $i = 0;
+        $tryNum = self::RETRY_NUM;
+        if (!$reTry) {
+            $tryNum = 1;
+        }
+        while ($i++ < $tryNum) {
+            try {
+                if ($timeout > 0) {
+                    $this->ossClient->setTimeout($timeout);
+                }
+                $this->ossClient->putObject($this->bucket, $filename, $content);
+                return true;
+            } catch (OssException $e) {
+                //超时可以重试
+                if (strpos($e->getMessage(), 'timed out after') !== false) {
+                    continue;
+                }
+                $this->error = $e;
+                return false;
+            }
+        }
+        $this->error = new OssException('upload file timed out after ' . $tryNum . ' times');
+        return false;
     }
 
     /**
@@ -124,12 +214,13 @@ class Oss
     /**
      * 获取文件临时访问链接
      * @param $filename
+     * @param null $timeout
      * @return bool|mixed
      */
-    public function getUrl($filename)
+    public function getUrl($filename, $timeout = null)
     {
         try {
-            $signedUrl = $this->ossClient->signUrl($this->bucket, $filename, $this->timeout);
+            $signedUrl = $this->ossClient->signUrl($this->bucket, $filename, $timeout ?? $this->timeout);
         } catch (OssException $e) {
             $this->error = $e;
             return false;

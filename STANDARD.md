@@ -9,7 +9,6 @@
  * 金额工具类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class AmountHelper extends Model
 {

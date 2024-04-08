@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 2018/12/23
- * Time: 11:50 AM
- */
 
 namespace yiqiang3344\yii2_lib\helper;
 
@@ -13,7 +7,7 @@ namespace yiqiang3344\yii2_lib\helper;
  * 字符串工具类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
+ * @since 1.0.61
  */
 class StringHelper extends \yii\helpers\StringHelper
 {
@@ -85,5 +79,67 @@ class StringHelper extends \yii\helpers\StringHelper
             return '-' . strtolower($matches[0]);
         }, lcfirst($string));
         return $str;
+    }
+
+    /**
+     * 版本号数字转点分隔
+     * @param $str
+     * @return string
+     */
+    public static function versionToPoint($str)
+    {
+        $str = (int)$str;
+        if (empty($str)) {
+            return '';
+        }
+        $v1 = bcdiv($str, 100, 2);
+        $v1c = bcdiv($str, 100, 0);
+        $v1 = bcmul(bcsub($v1, $v1c, 2), 100, 0);
+        $v2 = bcdiv($v1c, 100, 2);
+        $v2c = bcdiv($v1c, 100, 0);
+        $v2 = bcmul(bcsub($v2, $v2c, 2), 100, 0);
+        return $v2c . '.' . $v2 . '.' . $v1;
+    }
+
+    /**
+     * 版本号数字转点分隔
+     * @param $str
+     * @return string
+     */
+    public static function versionToNumber($str)
+    {
+        $str = (string)$str;
+        if (empty($str)) {
+            return '';
+        }
+        $arr = explode('.', $str);
+        return sprintf('%s%02d%02d', $arr[0], $arr[1], $arr[2]);
+    }
+
+    /**
+     * 横杠转下滑线式
+     * @param $string
+     * @return string
+     */
+    public static function lineToUnder($string)
+    {
+        $str = str_replace('-', '_', $string);
+        return $str;
+    }
+
+    /**
+     * 随机字符串
+     * @param $length
+     * @param $onlyNum false
+     */
+    public static function getRandom(int $length, bool $onlyNum = false)
+    {
+        $s = '0123456789' . ($onlyNum ? '' : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $last = strlen($s) - 1;
+        $res = '';
+        for ($i = 0; $i < $length; $i++) {
+            $res .= $s[rand(0, $last)];
+        }
+        return $res;
     }
 }

@@ -12,7 +12,6 @@ namespace yiqiang3344\yii2_lib\helper\validator;
  * 身份证校验类
  * User: sidney
  * Date: 2019/8/29
- * @since 1.0.0
  */
 class IdCardNumberValidator extends Validator
 {
@@ -35,9 +34,9 @@ class IdCardNumberValidator extends Validator
         if (!is_string($value)) {
             $valid = false;
         } elseif (strlen($value) == 18) {
-            $valid = preg_match('/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/', $idNumber);
+            $valid = preg_match('/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/', $value);
         } elseif (strlen($value == 15)) {
-            $valid = preg_match('/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/', $idNumber);
+            $valid = preg_match('/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/', $value);
         }
 
         return $valid ? null : [$this->message, []];
